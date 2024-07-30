@@ -11,33 +11,23 @@ class Solution:
             for j in i:
                 arr.append(j)
             res.append(arr)
-        def check(a,b):
-            if 0<=a<m and 0<=b<n:
-                return True
-            else:
-                return False
-
+        def countnei(a,b):
+            count=0
+            for i in range(a-1,a+2):
+                for j in range(b-1,b+2):
+                    if (i==a and b==j) or i<0 or j<0 or (i==m or j==n):
+                        continue
+                    if res[i][j]:
+                        count+=1
+            return count
         for i in range(m):
             for j in range(n):
-                count=0
-                a,b=i-1,j
-                if check(a,b) and res[a][b]: count+=1
-                a,b=i+1,j
-                if check(a,b) and res[a][b]: count+=1   
-                a,b=i-1,j-1
-                if check(a,b) and res[a][b]: count+=1 
-                a,b=i+1,j+1
-                if check(a,b) and res[a][b]: count+=1 
-                a,b=i,j+1
-                if check(a,b) and res[a][b]: count+=1  
-                a,b=i,j-1
-                if check(a,b) and res[a][b]: count+=1  
-                a,b=i+1,j-1
-                if check(a,b) and res[a][b]: count+=1  
-                a,b=i-1,j+1
-                if check(a,b) and res[a][b]: count+=1  
+                count=countnei(i,j)
+                if i==1 and j==0:
+                    print(count, board[i][j])  
                 if count<2 or  count>3:
                     board[i][j]=0
                 if count==3:
                     board[i][j]=1
+
                 
