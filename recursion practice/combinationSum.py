@@ -74,7 +74,7 @@ class Solution:
                 solve(arr,curr,index,n,res,sub)
                 curr+=sub.pop()
             solve(arr,curr,index+1,n,res,sub)
-        curr=0
+            
         res=[]
         solve(arr,target,0,len(arr),res)
         return res
