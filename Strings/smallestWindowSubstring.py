@@ -48,12 +48,18 @@ class Solution:
         minlen=float("inf")
         for i in range(len(s)):
             d=defaultdict(int)
+            # count denotes the no. of elements of p in current substring of s
             count=0
+            # storing count of all elements of p
             for k in p:
                 d[k]+=1
             for j in range(i,len(s)):
+                # incrementing the value of count whenever s[j] in p or count of s[j] in d >0
                 if d[s[j]]>0: count+=1
+                # it will decrement the value of d[s[j]]
                 d[s[j]]-=1
+                # when the count is equal to length of p compare with prev substring length 
+                # and store min length of string and strating index
                 if count==len(p):
                     if j-i+1<minlen:
                         minlen=j-i+1
@@ -69,19 +75,31 @@ class Solution:
         #code here
         l=0
         r=0
+        # count denotes the no. of elements of p in current substring of s
         count=0
         d=defaultdict(int)
+            # storing count of all elements of p
         for i in p:
             d[i]+=1
         st=-1
         minlen=float("inf")
         while(r<len(s)):
+                # incrementing the value of count whenever s[j] in p occurs or count of s[j] in d >0
             if d[s[r]]>0: count+=1
+                # it will decrement the value of d[s[j]]
             d[s[r]]-=1
+            # whenever we got a substring which contains all elements of p 
+            # then starts finding smallest len by decreasing the l pointer 
+            # till count of elements of p become<len(p)
             while l <= r and count==len(p):
+                # when the count is equal to length of p compare with prev substring length 
+                # and store min length of string and strating index
                 if r-l+1<minlen or (r-l+1==minlen and l<st ):
                     minlen=r-l+1
                     st=l
+                # As r pointer had decreased the value of all d[s[l]] 
+                # so whever it find a elements of p in substring it will increment the d[s[l]]
+                # 
                 d[s[l]]+=1
                 if d[s[l]]>0: count-=1
                 l+=1
