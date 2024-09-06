@@ -108,3 +108,31 @@ def minSubsetSumDifference(arr):
     return mini
 
 
+# ------------------------------------------------------Tabulation-----------------------------------------
+
+
+    totSum=sum(arr)
+    dp = [[0 for i in range(totSum + 1)] for j in range(n)]
+    for i in range(n):
+        dp[i][0]=True
+    if arr[0]<=totSum:
+        dp[0][arr[0]]=True
+    for i in range(n):
+        for k in range(totSum+1):
+            # 1. Try not taking the current element.
+            notTaken = dp[i - 1][ k]
+
+            # 2. Try taking the current element if it is less than or equal to the target.
+            taken = False
+            if arr[i] <= k:
+                taken = dp[i - 1][ k-arr[i]]
+
+            # Update the DP table and return the result.
+            dp[i][k] = notTaken or taken
+    mini=10e9
+    for i in range(totSum + 1):
+        if dp[n - 1][i] == True:
+            # Calculate the difference between the current sum and the complement sum.
+            diff = abs(i - (totSum - i))
+            mini = min(mini, diff)
+    return mini
